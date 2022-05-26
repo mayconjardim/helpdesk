@@ -9,14 +9,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helpdesk.api.enums.Prioridade;
 import com.helpdesk.api.enums.Status;
 
 @Entity
-@Table(name = "tb_chamado")
 public class Chamado {
 
 
@@ -46,12 +44,10 @@ public class Chamado {
 		super();
 	}
 
-	public Chamado(Integer id, LocalDate dataAbertura, LocalDate dataFechamento, Prioridade prioridade, Status status,
+	public Chamado(Integer id, Prioridade prioridade, Status status,
 			String titulo, String observacoes, Tecnico tecnico, Cliente cliente) {
 		super();
 		this.id = id;
-		this.dataAbertura = dataAbertura;
-		this.dataFechamento = dataFechamento;
 		this.prioridade = prioridade;
 		this.status = status;
 		this.titulo = titulo;

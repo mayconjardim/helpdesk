@@ -15,13 +15,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.helpdesk.api.enums.Perfil;
 
 @Entity
-@Table(name = "tb_pessoa")
 public abstract class Pessoa implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -38,7 +36,7 @@ public abstract class Pessoa implements Serializable {
 	protected String senha;
 	
 	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "tb_perfis")
+	@CollectionTable(name = "perfis")
 	protected Set<Integer> perfis = new HashSet<>();
 	
 	@JsonFormat(pattern = "dd/MM/yyyy")
