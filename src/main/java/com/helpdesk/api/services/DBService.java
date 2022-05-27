@@ -33,9 +33,9 @@ public class DBService {
 		Tecnico tec1 = new Tecnico(null, "Maycon Jardim", "12448877742", "maycon@gmail.com", "123");
 		tec1.addPerfil(Perfil.ADMIN);
 		Tecnico tec2 = new Tecnico(null, "Marcelo Jardim", "88471989", "marcelo@gmail.com", "123");
-		tec1.addPerfil(Perfil.ADMIN);
+		tec2.addPerfil(Perfil.TECNICO);
 		Tecnico tec3 = new Tecnico(null, "Douglas Jardim", "84154244", "douglas@gmail.com", "123");
-		tec1.addPerfil(Perfil.ADMIN);
+		tec3.addPerfil(Perfil.TECNICO);
 		
 		Cliente cli1 = new Cliente(null, "Jose Rovaldo", "93975148", "jose@gmail.com", "123");
 		Cliente cli2 = new Cliente(null, "Peixoto Ribeiro", "77458877", "peixoto@gmail.com", "123");
