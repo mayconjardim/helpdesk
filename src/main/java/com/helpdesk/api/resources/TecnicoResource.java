@@ -1,6 +1,8 @@
 package com.helpdesk.api.resources;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,10 +22,14 @@ public class TecnicoResource {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<TecnicoDTO> findById(@PathVariable Integer id) {
-
 		Tecnico obj = service.findById(id);
 		return ResponseEntity.ok().body(new TecnicoDTO(obj));
-
 	}
 
+	
+	@GetMapping
+	public ResponseEntity<Page<TecnicoDTO>> findAll(Pageable pageable){ 
+		Page<TecnicoDTO> list = service.findAllPaged(pageable);
+		return ResponseEntity.ok().body(list); 
+	}
 }
