@@ -3,11 +3,13 @@ package com.helpdesk.api.entities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.helpdesk.api.dtos.TecnicoDTO;
 import com.helpdesk.api.enums.Perfil;
 
 @Entity
@@ -26,6 +28,17 @@ public class Tecnico extends Pessoa {
 	public Tecnico() {
 		super();
 	}
+	
+	public Tecnico(TecnicoDTO tecnicoDTO) {
+		this.id = tecnicoDTO.getId();
+		this.nome = tecnicoDTO.getNome();
+		this.cpf = tecnicoDTO.getCpf();
+		this.email = tecnicoDTO.getEmail();
+		this.senha = tecnicoDTO.getSenha();
+		this.perfis = tecnicoDTO.getPerfis().stream().map(x -> x.getCodigo()).collect(Collectors.toSet());
+		this.dataCriacao = tecnicoDTO.getDataCriacao();
+	}
+
 
 	public List<Chamado> getChamados() {
 		return chamados;
