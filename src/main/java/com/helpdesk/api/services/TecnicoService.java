@@ -2,6 +2,8 @@ package com.helpdesk.api.services;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -53,5 +55,14 @@ public class TecnicoService {
 		if (obj.isPresent() && obj.get().getId() != tecnicoDTO.getId()) {
 			throw new DataIntegrityViolationException("Email já cadastrado no sistema!");
 		}
+	}
+
+	public Tecnico update(@Valid Integer id, TecnicoDTO tecnicoDTO) {
+		tecnicoDTO.setId(id);
+		Tecnico obj = findById(id);
+		validCpfEmail(tecnicoDTO);
+		obj = new Tecnico(tecnicoDTO);
+		return repository.save(obj);
+		
 	}
 }
