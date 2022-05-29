@@ -7,6 +7,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.helpdesk.api.dtos.ClienteDTO;
@@ -25,6 +26,10 @@ public class ClienteService {
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
+	
+	@Autowired
+	private BCryptPasswordEncoder encoder;
+	
 
 	public Cliente findById(Integer id) {
 		Optional<Cliente> obj = repository.findById(id);
@@ -40,6 +45,7 @@ public class ClienteService {
 
 	public Cliente create(ClienteDTO clienteDTO) {
 		clienteDTO.setId(null);
+		clienteDTO.setSenha(encoder.encode(clienteDTO.getSenha()));
 		validCpfEmail(clienteDTO);
 		Cliente obj = new Cliente(clienteDTO);
 		return repository.save(obj);
