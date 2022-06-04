@@ -1,12 +1,12 @@
 package com.helpdesk.api.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,9 +38,10 @@ public class TecnicoResource {
 
 	
 	@GetMapping
-	public ResponseEntity<Page<TecnicoDTO>> findAll(Pageable pageable){ 
-		Page<TecnicoDTO> list = service.findAllPaged(pageable);
-		return ResponseEntity.ok().body(list); 
+	public ResponseEntity<List<TecnicoDTO>> findAll(){ 
+		List<Tecnico> list = service.findAll();
+		List<TecnicoDTO> listDTO = list.stream().map(obj -> new TecnicoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO); 
 	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")

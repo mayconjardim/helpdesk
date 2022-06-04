@@ -1,12 +1,11 @@
 package com.helpdesk.api.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,10 +35,8 @@ public class TecnicoService {
 
 	}
 
-	public Page<TecnicoDTO> findAllPaged(Pageable pageable) {
-		Page<Tecnico> list = repository.findAll(pageable);
-		return list.map(x -> new TecnicoDTO(x));
-
+	public List<Tecnico> findAll() {
+		return repository.findAll();
 	}
 
 	public Tecnico create(TecnicoDTO tecnicoDTO) {
