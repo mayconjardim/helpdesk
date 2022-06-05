@@ -50,6 +50,11 @@ public class TecnicoService {
 	public Tecnico update(@Valid Integer id, TecnicoDTO tecnicoDTO) {
 		tecnicoDTO.setId(id);
 		Tecnico obj = findById(id);
+		
+		if(!tecnicoDTO.getSenha().equals(obj.getSenha())) {
+			tecnicoDTO.setSenha(encoder.encode(tecnicoDTO.getSenha()));
+		}
+		
 		validCpfEmail(tecnicoDTO);
 		obj = new Tecnico(tecnicoDTO);
 		return repository.save(obj);
