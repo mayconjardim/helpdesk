@@ -1,12 +1,12 @@
 package com.helpdesk.api.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +35,10 @@ public class ChamadoResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<Page<ChamadoDTO>> findAll(Pageable pageable){ 
-		Page<ChamadoDTO> list = service.findAllPaged(pageable);
-		return ResponseEntity.ok().body(list); 
+	public ResponseEntity<List<ChamadoDTO>> findAll(){ 
+		List<Chamado> list = service.findAll();
+		List<ChamadoDTO> listDTO = list.stream().map(obj -> new ChamadoDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO); 
 	}
 	
 	@PostMapping

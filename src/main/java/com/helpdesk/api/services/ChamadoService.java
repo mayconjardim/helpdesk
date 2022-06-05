@@ -1,13 +1,12 @@
 package com.helpdesk.api.services;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.helpdesk.api.dtos.ChamadoDTO;
@@ -36,10 +35,8 @@ public class ChamadoService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado ID: " + id));
 	}
 
-	public Page<ChamadoDTO> findAllPaged(Pageable pageable) {
-		Page<Chamado> list = repository.findAll(pageable);
-		return list.map(x -> new ChamadoDTO(x));
-
+	public List<Chamado> findAll() {
+		return repository.findAll();
 	}
 
 	public Chamado create(@Valid ChamadoDTO chamadoDTO) {
