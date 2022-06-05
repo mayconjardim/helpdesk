@@ -1,12 +1,12 @@
 package com.helpdesk.api.resources;
 
 import java.net.URI;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,9 +37,10 @@ public class ClienteResource {
 
 	
 	@GetMapping
-	public ResponseEntity<Page<ClienteDTO>> findAll(Pageable pageable){ 
-		Page<ClienteDTO> list = service.findAllPaged(pageable);
-		return ResponseEntity.ok().body(list); 
+	public ResponseEntity<List<ClienteDTO>> findAll(){ 
+		List<Cliente> list = service.findAll();
+		List<ClienteDTO> listDTO = list.stream().map(obj -> new ClienteDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO); 
 	}
 	
 	@PostMapping
